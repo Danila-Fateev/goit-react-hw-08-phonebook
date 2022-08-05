@@ -26,10 +26,12 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    localStorage.setItem(
-      'storageContacts',
-      JSON.stringify(this.state.contacts)
-    );
+    if (!(prevState.contacts === this.state.contacts)) {
+      localStorage.setItem(
+        'storageContacts',
+        JSON.stringify(this.state.contacts)
+      );
+    }
   }
 
   onSubmitForm = e => {
