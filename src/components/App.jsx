@@ -1,42 +1,32 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 import PhonebookForm from './Phonebook/PhonebookForm';
 import PhonebookList from './Phonebook/PhonebookList';
 import PhonebookFilter from './Phonebook/PhonebookFilter';
 
-export class App extends Component {
-  state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    filter: '',
-  };
+export function App() {
+  const array = [
+    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+  ];
 
-  componentDidMount() {
+  const [contacts, setContacts] = useState(array);
+  const [filter, setFilter] = useState('');
+
+  useEffect(() => {
     const parsedContacts = JSON.parse(localStorage.getItem('storageContacts'));
-    if (parsedContacts) {
-      this.setState({
-        contacts: parsedContacts,
-      });
-    }
-  }
+    setContacts(parsedContacts);
+  }, []);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (!(prevState.contacts === this.state.contacts)) {
-      localStorage.setItem(
-        'storageContacts',
-        JSON.stringify(this.state.contacts)
-      );
-    }
-  }
+  useEffect(() => {
+    localStorage.setItem('storageContacts', JSON.stringify(contacts));
+  }, [contacts]);
 
-  onSubmitForm = e => {
+  const onSubmitForm = e => {
     e.preventDefault();
-    const { contacts } = this.state;
 
     const submitContactName = e.currentTarget.elements.name.value;
     const submitContactNumber = e.currentTarget.elements.number.value;
@@ -51,9 +41,7 @@ export class App extends Component {
       !contacts.find(el => el.name.toLowerCase() === contact.name.toLowerCase())
     ) {
       e.target.reset();
-      this.setState({
-        contacts: [contact, ...contacts],
-      });
+      setContacts([contact, ...contacts]);
       return;
     }
     e.target.reset();
@@ -62,63 +50,47 @@ export class App extends Component {
     );
   };
 
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  const changeFilter = e => {
+    setFilter(e.currentTarget.value);
   };
 
-  changeFilter = e => {
-    this.setState({
-      filter: e.target.value,
-    });
-  };
-
-  filterListByName = e => {
-    const { filter, contacts } = this.state;
+  const filterListByName = () => {
     const filteredContacts = contacts.filter(el =>
       el.name.toLowerCase().includes(filter.toLowerCase())
     );
+
     return filteredContacts;
   };
 
-  deleteContact = e => {
-    const { contacts } = this.state;
-
+  const deleteContact = e => {
     const itemID = e.target.parentNode.id;
     const itemFiltered = contacts.filter(el => el.id === itemID);
     const contactIndex = contacts.indexOf(...itemFiltered);
-    const listContacts = contacts;
+    const listContacts = [...contacts];
     listContacts.splice(contactIndex, 1);
 
-    this.setState({
-      contacts: listContacts,
-    });
+    setContacts(listContacts);
   };
 
-  render() {
-    const filteredItems = this.filterListByName();
+  const filteredItems = filterListByName();
 
-    return (
-      <div
-        style={{
-          height: '100vh',
-          fontSize: 20,
-          color: '#010101',
-        }}
-      >
-        <h1>Phonebook</h1>
-        <PhonebookForm onSubmitForm={this.onSubmitForm} />
-        <h2>Contacts</h2>
-        <PhonebookFilter
-          changeFilter={this.changeFilter}
-          value={this.state.filter}
-        />
+  return (
+    <div
+      style={{
+        height: '100vh',
+        fontSize: 20,
+        color: '#010101',
+      }}
+    >
+      <h1>Phonebook</h1>
+      <PhonebookForm onSubmitForm={onSubmitForm} />
+      <h2>Contacts</h2>
+      <PhonebookFilter changeFilter={changeFilter} value={filter} />
 
-        <PhonebookList
-          filteredItems={filteredItems}
-          deleteContact={this.deleteContact}
-        />
-      </div>
-    );
-  }
+      <PhonebookList
+        filteredItems={filteredItems}
+        deleteContact={deleteContact}
+      />
+    </div>
+  );
 }
