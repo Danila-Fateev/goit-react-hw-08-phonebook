@@ -61,9 +61,7 @@ export function App() {
 
     setContacts(listContacts);
   };
-
   const filteredItems = filterListByName();
-
   return (
     <div
       style={{
