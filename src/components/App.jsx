@@ -7,8 +7,11 @@ import PhonebookFilter from './Phonebook/PhonebookFilter';
 
 export function App() {
   const [contacts, setContacts] = useState(
-    JSON.parse(window.localStorage.getItem('storageContacts'))
+    window.localStorage.getItem('storageContacts')
+      ? JSON.parse(window.localStorage.getItem('storageContacts'))
+      : []
   );
+
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
