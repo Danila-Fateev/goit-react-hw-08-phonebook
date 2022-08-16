@@ -1,22 +1,19 @@
-import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  deleteContacts,
+  addContact,
+  setFilter,
+} from './features/contactsListReducers/contactsListReducers';
 
 import PhonebookForm from './Phonebook/PhonebookForm';
 import PhonebookList from './Phonebook/PhonebookList';
 import PhonebookFilter from './Phonebook/PhonebookFilter';
 
 export function App() {
-  const [contacts, setContacts] = useState(
-    window.localStorage.getItem('storageContacts')
-      ? JSON.parse(window.localStorage.getItem('storageContacts'))
-      : []
-  );
-
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    window.localStorage.setItem('storageContacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const listOfContacts = useSelector(state => state.contacts.contacts.items);
+  const filter = useSelector(state => state.contacts.contacts.filter);
+  const dispatch = useDispatch();
 
   const onSubmitForm = e => {
     e.preventDefault();
@@ -31,10 +28,12 @@ export function App() {
     };
 
     if (
-      !contacts.find(el => el.name.toLowerCase() === contact.name.toLowerCase())
+      !listOfContacts.find(
+        el => el.name.toLowerCase() === contact.name.toLowerCase()
+      )
     ) {
       e.target.reset();
-      setContacts([contact, ...contacts]);
+      dispatch(addContact(contact));
       return;
     }
     e.target.reset();
@@ -44,11 +43,11 @@ export function App() {
   };
 
   const changeFilter = e => {
-    setFilter(e.currentTarget.value);
+    dispatch(setFilter(e.currentTarget.value));
   };
 
   const filterListByName = () => {
-    const filteredContacts = contacts.filter(el =>
+    const filteredContacts = listOfContacts.filter(el =>
       el.name.toLowerCase().includes(filter.toLowerCase())
     );
 
@@ -57,13 +56,10 @@ export function App() {
 
   const deleteContact = e => {
     const itemID = e.target.parentNode.id;
-    const itemFiltered = contacts.filter(el => el.id === itemID);
-    const contactIndex = contacts.indexOf(...itemFiltered);
-    const listContacts = [...contacts];
-    listContacts.splice(contactIndex, 1);
-
-    setContacts(listContacts);
+    const itemFiltered = listOfContacts.find(el => el.id === itemID);
+    dispatch(deleteContacts(itemFiltered));
   };
+
   const filteredItems = filterListByName();
   return (
     <div
