@@ -1,4 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
+
 const initialState = {
     contacts: {
         items:     window.localStorage.getItem('storageContacts')
@@ -7,6 +8,7 @@ const initialState = {
         filter: ''
     }
 }
+
 export const listContactsSlice = createSlice({
     name: 'contactsList',
     initialState,
@@ -24,7 +26,5 @@ export const listContactsSlice = createSlice({
         }
     }
 })
-
 export const { addContact, deleteContacts, setFilter } = listContactsSlice.actions
-
 export default listContactsSlice.reducer
