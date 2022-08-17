@@ -4,7 +4,7 @@ import {
   deleteContacts,
   addContact,
   setFilter,
-} from './features/contactsListReducers/contactsListReducers';
+} from '../redux/contactsListReducers/contactsListReducers';
 
 import PhonebookForm from './Phonebook/PhonebookForm';
 import PhonebookList from './Phonebook/PhonebookList';
@@ -36,7 +36,6 @@ export function App() {
       dispatch(addContact(contact));
       return;
     }
-    e.target.reset();
     alert(
       `You already have contact with name '${contact.name}' or number '${contact.number}'`
     );
