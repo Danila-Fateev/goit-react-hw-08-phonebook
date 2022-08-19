@@ -1,7 +1,6 @@
 import PhonebookForm from './Phonebook/PhonebookForm';
 import PhonebookList from './Phonebook/PhonebookList';
 import PhonebookFilter from './Phonebook/PhonebookFilter';
-import { useGetContactsQuery } from 'redux/services/contacts';
 
 export function App() {
   return (
@@ -14,8 +13,8 @@ export function App() {
     >
       {/* <h1>Phonebook</h1>
       <PhonebookForm />
-      <h2>Contacts</h2>
-      <PhonebookFilter /> */}
+      <h2>Contacts</h2> */}
+      <PhonebookFilter />
 
       <PhonebookList />
     </div>

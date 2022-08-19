@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from '../../redux/contactsListReducers/contactsListReducers';
+import { setFilter } from '../../redux/contactsListReducers/filterReducers';
 
 export default function PhonebookFilter() {
-  const filter = useSelector(state => state.contacts.contacts.filter);
+  const filter = useSelector(state => state.filter.filter);
   const dispatch = useDispatch();
 
-  const changeFilter = e => dispatch(setFilter(e.currentTarget.value));
+  const changeFilter = e => dispatch(setFilter(e.target.value));
 
   return (
     <label>
