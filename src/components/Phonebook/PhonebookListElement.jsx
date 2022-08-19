@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './Phonebook.module.css';
 import { useDeleteContactMutation } from 'redux/services/contacts';
 
@@ -24,3 +25,11 @@ export default function PhonebookListElement({ filteredeItem }) {
     </li>
   );
 }
+
+PhonebookListElement.propTypes = {
+  filteredeItem: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  }),
+};
