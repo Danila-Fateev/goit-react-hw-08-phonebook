@@ -11,9 +11,9 @@ export function App() {
         color: '#010101',
       }}
     >
-      {/* <h1>Phonebook</h1>
+      <h1>Phonebook</h1>
       <PhonebookForm />
-      <h2>Contacts</h2> */}
+      <h2>Contacts</h2>
       <PhonebookFilter />
 
       <PhonebookList />
