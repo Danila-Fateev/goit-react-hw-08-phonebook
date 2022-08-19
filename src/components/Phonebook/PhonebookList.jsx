@@ -1,25 +1,25 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteContacts } from '../../redux/contactsListReducers/contactsListReducers';
 import styles from './Phonebook.module.css';
+import {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+} from 'redux/services/contacts';
 
 export default function PhonebookList() {
-  const listOfContacts = useSelector(state => state.contacts.contacts.items);
-  const filter = useSelector(state => state.contacts.contacts.filter);
-  const dispatch = useDispatch();
+  const { data, error, isLoading } = useGetContactsQuery();
+  const [deleteContactFunction, result] = useDeleteContactMutation();
 
-  const filterListByName = () => {
-    return listOfContacts.filter(el =>
-      el.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
+  // const filterListByName = () => {
+  //   return listOfContacts.filter(el =>
+  //     el.name.toLowerCase().includes(filter.toLowerCase())
+  //   );
+  // };
 
   const deleteContact = e => {
     const itemID = e.target.parentNode.id;
-    const itemFound = listOfContacts.find(el => el.id === itemID);
-    dispatch(deleteContacts(itemFound));
+    deleteContactFunction(itemID);
   };
 
-  const filteredItems = filterListByName();
+  // const filteredItems = filterListByName();
 
   return (
     <ul
@@ -29,18 +29,25 @@ export default function PhonebookList() {
         width: '500px',
       }}
     >
-      {filteredItems.map(({ id, name, number }) => (
-        <li key={id} className={styles.listItem} id={id}>
-          {name}: {number}
-          <button
-            className={styles.itemBtn}
-            type="button"
-            onClick={deleteContact}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
+      {error ? (
+        <>Oh no, there was an error</>
+      ) : isLoading ? (
+        <>Loading...</>
+      ) : data ? (
+        data.map(({ id, name, phone }) => (
+          <li key={id} className={styles.listItem} id={id}>
+            {name}: {phone}
+            <button
+              className={styles.itemBtn}
+              type="button"
+              onClick={deleteContact}
+            >
+              Delete
+            </button>
+            ;
+          </li>
+        ))
+      ) : null}
     </ul>
   );
 }
