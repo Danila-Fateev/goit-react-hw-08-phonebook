@@ -41,6 +41,7 @@ export default function PhonebookList() {
               className={styles.itemBtn}
               type="button"
               onClick={deleteContact}
+              disabled={result.isLoading}
             >
               Delete
             </button>
