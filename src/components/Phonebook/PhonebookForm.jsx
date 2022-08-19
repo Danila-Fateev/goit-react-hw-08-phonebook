@@ -15,7 +15,7 @@ export default function PhonebookForm() {
 
     const contact = {
       name: submitContactName,
-      number: submitContactNumber,
+      phone: submitContactNumber,
     };
 
     if (
