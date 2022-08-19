@@ -47,7 +47,6 @@ export default function PhonebookList() {
             >
               Delete
             </button>
-            ;
           </li>
         ))
       ) : null}
