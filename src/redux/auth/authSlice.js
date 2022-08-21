@@ -14,17 +14,17 @@ export const authSlice = createSlice({
     [authOperations.register.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
-      state.password = action.payload.password;
       state.isLoggedIn = true;
     },
     [authOperations.logIn.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
-      state.password = action.payload.password;
       state.isLoggedIn = true;
     },
     [authOperations.logOut.fulfilled](state) {
-      state = initialState;
+      state.user = { name: null, email: null, password: null };
+      state.token = null;
+      state.isLoggedIn = false;
     },
   },
 });
