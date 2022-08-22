@@ -47,7 +47,7 @@ export default function LogInView() {
             placeholder="Enter your username"
           />
         </label>
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
