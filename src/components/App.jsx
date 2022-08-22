@@ -1,17 +1,20 @@
-import authSelectors from 'redux/auth/authSelectors';
-import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
-import PhonebookForm from './Phonebook/PhonebookForm';
-import PhonebookList from './Phonebook/PhonebookList';
-import PhonebookFilter from './Phonebook/PhonebookFilter';
-import AuthNav from './Authorizaton/AuthNav';
-import UserMenu from './Authorizaton/UserMenu';
+import AppBar from './AppBar';
 import RegisterView from './Authorizaton/RegisterView';
 import LogInView from './Authorizaton/LogInView';
+import ContactsPage from 'pages/ContactsPage';
+import authOperations from 'redux/auth/authOperations';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 export function App() {
-  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
+
   return (
     <div
       style={{
@@ -20,17 +23,11 @@ export function App() {
         color: '#010101',
       }}
     >
-      {isLoggedIn ? <UserMenu /> : <AuthNav />}
-
-      <h1>Phonebook</h1>
-      <PhonebookForm />
-      <h2>Contacts</h2>
-      <PhonebookFilter />
-      <PhonebookList />
-
+      <AppBar />
       <Routes>
-        <Route path="/register" element={RegisterView} />
-        <Route path="/login" element={LogInView} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/register" element={<RegisterView />} />
+        <Route path="/login" element={<LogInView />} />
       </Routes>
     </div>
   );

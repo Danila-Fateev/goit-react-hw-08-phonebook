@@ -26,7 +26,7 @@ const register = createAsyncThunk('auth/register', async credentials => {
 const logIn = createAsyncThunk('auth/login', async credentials => {
   try {
     const { data } = await axios.post('/users/login', credentials);
-
+    token.set(data.token);
     return data;
   } catch (error) {
     console.log(error.message);
@@ -42,10 +42,29 @@ const logOut = createAsyncThunk('auth/logout', async credentials => {
   }
 });
 
+const fetchCurrentUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
+    }
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.get('/users/current');
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const operations = {
   register,
   logOut,
   logIn,
+  fetchCurrentUser,
 };
 
 export default operations;

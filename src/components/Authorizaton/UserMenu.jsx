@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import authSelectors from 'redux/auth/authSelectors';
 import authOperations from 'redux/auth/authOperations';
+import { NavLink } from 'react-router-dom';
 
 export default function UserMenu() {
   const dispatch = useDispatch();
@@ -8,7 +9,8 @@ export default function UserMenu() {
 
   return (
     <div>
-      <p>Welcome {name}</p>
+      <NavLink to="/contacts">Contacts</NavLink>
+      <p>Welcome, {name}!</p>
       <button type="button" onClick={() => dispatch(authOperations.logOut())}>
         Logout
       </button>
