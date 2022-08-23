@@ -28,6 +28,8 @@ export function App() {
           height: '100vh',
           fontSize: 20,
           color: '#010101',
+          maxWidth: '1400px',
+          margin: 'auto',
         }}
       >
         <AppBar />

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import styles from './Phonebook.module.css';
 import { useDeleteContactMutation } from 'redux/services/contacts';
+import Button from '@mui/material/Button';
 
 export default function PhonebookListElement({ filteredeItem }) {
   const { id, name, number } = filteredeItem;
@@ -14,14 +15,16 @@ export default function PhonebookListElement({ filteredeItem }) {
   return (
     <li className={styles.listItem} id={id}>
       {name}: {number}
-      <button
+      <Button
         className={styles.itemBtn}
+        variant="contained"
+        color="error"
         type="button"
         onClick={deleteContact}
         disabled={result.isLoading}
       >
         Delete
-      </button>
+      </Button>
     </li>
   );
 }

@@ -7,7 +7,6 @@ export default function PhonebookList() {
   const { data, error, isLoading } = useGetContactsQuery();
 
   const filterListByName = () => {
-    console.log(data);
     return data.filter(el =>
       el.name.toLowerCase().includes(filter.toLowerCase())
     );
@@ -19,8 +18,8 @@ export default function PhonebookList() {
     <ul
       style={{
         listStyle: 'none',
-        padding: '25px',
         width: '500px',
+        padding: '0',
       }}
     >
       {error ? (
