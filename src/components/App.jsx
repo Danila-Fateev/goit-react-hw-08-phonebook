@@ -39,9 +39,7 @@ export function App() {
           />
           <Route
             path="/register"
-            element={
-              isLoggedIn ? <Navigate to="/contacts" /> : <RegisterView />
-            }
+            element={isLoggedIn ? <Navigate to="/" /> : <RegisterView />}
           />
           <Route
             path="/login"

@@ -57,7 +57,7 @@ export default function RegisterView() {
             type="password"
             name="password"
             onChange={handleChange}
-            placeholder="Enter your username"
+            placeholder="Enter your password"
           />
         </label>
         <button type="submit">Register</button>

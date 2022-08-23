@@ -44,7 +44,7 @@ export default function LogInView() {
             type="password"
             name="password"
             onChange={handleChange}
-            placeholder="Enter your username"
+            placeholder="Enter your password"
           />
         </label>
         <button type="submit">Login</button>
