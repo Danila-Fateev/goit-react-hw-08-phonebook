@@ -15,7 +15,7 @@ export default function PhonebookForm() {
 
     const contact = {
       name: submitContactName,
-      phone: submitContactNumber,
+      number: submitContactNumber,
     };
 
     if (
@@ -26,7 +26,7 @@ export default function PhonebookForm() {
       return;
     }
     alert(
-      `You already have contact with name '${contact.name}' or number '${contact.phone}'`
+      `You already have contact with name '${contact.name}' or number '${contact.number}'`
     );
   };
 

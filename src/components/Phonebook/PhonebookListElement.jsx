@@ -3,7 +3,7 @@ import styles from './Phonebook.module.css';
 import { useDeleteContactMutation } from 'redux/services/contacts';
 
 export default function PhonebookListElement({ filteredeItem }) {
-  const { id, name, phone } = filteredeItem;
+  const { id, name, number } = filteredeItem;
   const [deleteContactFunction, result] = useDeleteContactMutation();
 
   const deleteContact = e => {
@@ -13,7 +13,7 @@ export default function PhonebookListElement({ filteredeItem }) {
 
   return (
     <li className={styles.listItem} id={id}>
-      {name}: {phone}
+      {name}: {number}
       <button
         className={styles.itemBtn}
         type="button"
@@ -30,6 +30,6 @@ PhonebookListElement.propTypes = {
   filteredeItem: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
   }),
 };
