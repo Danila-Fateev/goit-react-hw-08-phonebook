@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import authOperations from '../../redux/auth/authOperations';
+import styles from '../Phonebook/Phonebook.module.css';
+import { TextField, Button } from '@mui/material';
 
 export default function LogInView() {
   const dispatch = useDispatch();
@@ -29,25 +31,23 @@ export default function LogInView() {
     <div>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          E-mail
-          <input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            placeholder="Enter your e-mail"
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            placeholder="Enter your password"
-          />
-        </label>
-        <button type="submit">Login</button>
+        <TextField
+          label="E-mail"
+          variant="outlined"
+          type="email"
+          name="email"
+          onChange={handleChange}
+        />
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          name="password"
+          onChange={handleChange}
+        />
+        <Button variant="contained" type="submit" className={styles.authBtn}>
+          Login
+        </Button>
       </form>
     </div>
   );

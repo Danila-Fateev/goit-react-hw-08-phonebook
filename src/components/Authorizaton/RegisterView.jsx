@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import authOperations from '../../redux/auth/authOperations';
+import styles from '../Phonebook/Phonebook.module.css';
+import { TextField, Button } from '@mui/material';
 
 export default function RegisterView() {
   const dispatch = useDispatch();
@@ -33,34 +35,30 @@ export default function RegisterView() {
     <div>
       <h1>Registration</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username
-          <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            placeholder="Enter your username"
-          />
-        </label>
-        <label>
-          E-mail
-          <input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            placeholder="Enter your e-mail"
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            placeholder="Enter your password"
-          />
-        </label>
-        <button type="submit">Register</button>
+        <TextField
+          label="Username"
+          variant="outlined"
+          type="text"
+          name="name"
+          onChange={handleChange}
+        />
+        <TextField
+          label="E-mail"
+          variant="outlined"
+          type="email"
+          name="email"
+          onChange={handleChange}
+        />
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          name="password"
+          onChange={handleChange}
+        />
+        <Button variant="contained" type="submit" className={styles.authBtn}>
+          Register
+        </Button>
       </form>
     </div>
   );

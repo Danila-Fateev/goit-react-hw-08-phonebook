@@ -7,6 +7,10 @@
   margin-bottom: 20px;
 }
 
+.authBtn {
+  display: block;
+  margin-top: 15px;
+}
 .listItem {
   width: 400px;
   display: flex;
@@ -15,4 +19,23 @@
   border: 1px solid grey;
   padding: 10px 20px;
   position: relative;
+}
+
+.authLinksList {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+}
+
+.authLinksLink {
+  text-decoration: none;
+  color: black;
+  transition: color 250ms;
+}
+
+.authLinksLink:hover,
+.authLinksLink:focus {
+  color: rgb(0, 110, 255);
 }
